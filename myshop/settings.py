@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,26 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
 CART_SESSION_ID='cart'
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = 'wwd324y3kvkktkx2'
+BRAINTREE_PUBLIC_KEY = 'x34pkkj7k2rjkjwk'
+BRAINTREE_PRIVATE_KEY = 'da75e1366731b582a2a2124fa5657efd'
+
+from braintree import Configuration, Environment
+
+Configuration.configure(
+    Environment.Sandbox,
+    # Environment.Production,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
+
+STATIC_ROOT=os.path.join(BASE_DIR,'static/')
+
+EMAIL_HOST='smtp.163.com'
+EMAIL_HOST_USER='yh951012@163.com'
+EMAIL_HOST_PASSWORD='yh90467951012'
+EMAIL_PORT=25
+EMAIL_USE_TLS=True
