@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -153,3 +155,10 @@ EMAIL_HOST_USER='yh951012@163.com'
 EMAIL_HOST_PASSWORD='yh90467951012'
 EMAIL_PORT=25
 EMAIL_USE_TLS=True
+
+LANGUAGES=(
+    ('en',_('English')),
+    ('zh-hans',_('Simplified Chinese')),
+)
+
+LOCALE_PATHS=(os.path.join(BASE_DIR,'locale'),)
