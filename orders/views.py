@@ -9,7 +9,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 import weasyprint
-
+from shop.recommender import Recommender
 def order_create(request):
     cart=Cart(request)
     if request.method=="POST":
@@ -22,6 +22,8 @@ def order_create(request):
             order.save()
             for item in cart:
                 OrderItem.objects.create(order=order,product=item['product'],price=item['price'],quantity=item['quantity'])
+            r=Recommender()
+            r.products_bought([item['product'] for item in cart])
             cart.clear()
             order_created.delay(order.id)
             request.session['order_id']=order.id

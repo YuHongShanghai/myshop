@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
     'coupons.apps.CouponsConfig',
+    'rosetta',
+    'parler',
+    'localflavor',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -112,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -157,8 +161,25 @@ EMAIL_PORT=25
 EMAIL_USE_TLS=True
 
 LANGUAGES=(
+    ('zh-hans',_('简体中文')),
     ('en',_('English')),
-    ('zh-hans',_('Simplified Chinese')),
 )
 
-LOCALE_PATHS=(os.path.join(BASE_DIR,'locale'),)
+#Simplified Chinese
+
+LOCALE_PATHS=(os.path.join(BASE_DIR,'locale/'),)
+
+PARLER_LANGUAGES={
+    None:(
+        {'code':'en'},
+        {'code':'zh-hans'},
+    ),
+    'default':{
+        'fallback':'en',
+        'hide_untranslated':False,
+    }
+}
+
+REDIS_HOST='localhost'
+REDIS_PORT=6379
+REDIS_DB=1
